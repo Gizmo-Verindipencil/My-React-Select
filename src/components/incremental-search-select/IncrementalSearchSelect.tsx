@@ -104,6 +104,7 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
             {filteredOptions.length > 0
               ? filteredOptions.map((option) => (
                   <li
+                    key={option.value}
                     className={classes.option}
                     onClick={() => handleOptionClick(option)}
                   >
