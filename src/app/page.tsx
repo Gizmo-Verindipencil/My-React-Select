@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   const flavors = [
-    { value: "", label: "" },
+    { value: "none", label: "" },
     { value: "chocolate", label: "Chocolate" },
     { value: "vanilla", label: "Vanilla" },
     { value: "strawberry", label: "Strawberry" },
