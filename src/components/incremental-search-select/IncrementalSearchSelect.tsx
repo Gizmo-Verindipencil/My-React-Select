@@ -36,10 +36,12 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   }, [searchTerm, options]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const labels = options.filter((x) => x.value === e.target.value);
-    setSearchTerm(labels.length > 0 ? labels[0].label : "");
+    const destinations = options.filter((x) => x.value === e.target.value);
+    const destination = destinations.length > 0 ? destinations[0] : null;
+    setSearchTerm(destination?.label ?? "");
     setIsOpen(true);
-    setSelectedValue(null); // Clear selected value when typing
+    setValue(name, destination?.value ?? "");
+    setSelectedValue(destination?.value ?? null);
   };
 
   const handleOptionClick = (option: { value: string; label: string }) => {
