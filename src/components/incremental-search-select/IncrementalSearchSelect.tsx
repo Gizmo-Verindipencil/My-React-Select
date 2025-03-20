@@ -20,7 +20,6 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,14 +40,12 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
     if (destination) {
       setSearchTerm(destination.label);
       setValue(name, destination.value);
-      setSelectedValue(destination.value);
     }
   };
 
   const handleOptionClick = (option: { value: string; label: string }) => {
     setSearchTerm(option.label);
     setValue(name, option.value);
-    setSelectedValue(option.value);
     setIsOpen(false);
   };
 
