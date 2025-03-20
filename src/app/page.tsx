@@ -1,6 +1,7 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
+import { LazySelect } from "@/components/lazy-select";
 import { IncrementalSearchSelect } from "@/components/incremental-search-select";
 import { Select } from "@/components/select";
 import { Showcase } from "@/layouts/showcase";
@@ -31,13 +32,24 @@ export default function Home() {
       <h1>Component Showcases</h1>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <FormProvider {...methods}>
-          <Showcase label="Simple Select">
+          <Showcase label="Select">
             <Select label="Flavor" options={flavors} name="flavor" />
           </Showcase>
           <Showcase label="Incremental Search Select">
             <IncrementalSearchSelect
               label="Flavor"
               options={flavors}
+              name="flavor"
+            />
+          </Showcase>
+          <Showcase label="Lazy Select">
+            <LazySelect
+              label="Flavor"
+              fetch={async () => {
+                return new Promise<typeof flavors>((resolve) => {
+                  setTimeout(() => resolve(flavors), 2000);
+                });
+              }}
               name="flavor"
             />
           </Showcase>
