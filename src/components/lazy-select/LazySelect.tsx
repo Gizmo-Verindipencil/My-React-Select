@@ -42,9 +42,9 @@ const LazySelect: React.FC<LazySelectProps> = ({ name, fetch, label }) => {
       )}
       <select
         id={name}
-        className={classes.select}
-        {...register(name)}
+        className={`${classes.select} ${loaded.current || isLoading ? classes.loaded : ""}`}
         onFocus={handleFocus}
+        {...register(name)}
       >
         {isLoading ? (
           <option>Loading</option>
