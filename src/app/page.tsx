@@ -1,8 +1,9 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { Select } from "../components/select";
-import { Showcase } from "../layouts/showcase";
+import { IncrementalSearchSelect } from "@/components/incremental-search-select";
+import { Select } from "@/components/select";
+import { Showcase } from "@/layouts/showcase";
 
 export default function Home() {
   type props = {
@@ -10,6 +11,7 @@ export default function Home() {
   };
 
   const flavors = [
+    { value: "", label: "" },
     { value: "chocolate", label: "Chocolate" },
     { value: "vanilla", label: "Vanilla" },
     { value: "strawberry", label: "Strawberry" },
@@ -25,13 +27,22 @@ export default function Home() {
   });
 
   return (
-    <body>
+    <>
       <h1>Component Showcases</h1>
-      <FormProvider {...methods}>
-        <Showcase label="Simple Select">
-          <Select label="Flavor" options={flavors} name="flavor" />
-        </Showcase>
-      </FormProvider>
-    </body>
+      <div style={{ display: "flex" }}>
+        <FormProvider {...methods}>
+          <Showcase label="Simple Select">
+            <Select label="Flavor" options={flavors} name="flavor" />
+          </Showcase>
+          <Showcase label="Incremental Search Select">
+            <IncrementalSearchSelect
+              label="Flavor"
+              options={flavors}
+              name="flavor"
+            />
+          </Showcase>
+        </FormProvider>
+      </div>
+    </>
   );
 }
