@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <>
       <h1>Component Showcases</h1>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
         <FormProvider {...methods}>
           <Showcase label="Simple Select">
             <Select label="Flavor" options={flavors} name="flavor" />
