@@ -18,7 +18,7 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   fetch,
   label,
 }) => {
-  const { register, setValue } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [options, setOptions] = useState<option[]>([]);
   const [filteredOptions, setFilteredOptions] = useState(options);
@@ -26,6 +26,12 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const selectRef = useRef<HTMLDivElement>(null);
   const loaded = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const value = watch(name);
+  useEffect(() => {
+    if (!loaded.current) return;
+    setValue(name, value);
+  }, [value]);
 
   useEffect(() => {
     if (!searchTerm) {

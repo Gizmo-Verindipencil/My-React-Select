@@ -16,11 +16,16 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   options,
   label,
 }) => {
-  const { register, setValue } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
+
+  const value = watch(name);
+  useEffect(() => {
+    setValue(name, value);
+  }, [value]);
 
   useEffect(() => {
     if (!searchTerm) {
