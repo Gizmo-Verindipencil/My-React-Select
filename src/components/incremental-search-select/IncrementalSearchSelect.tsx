@@ -35,12 +35,11 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
     );
   }, [searchTerm, options]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const destinations = options.filter((x) => x.value === e.target.value);
     const destination = destinations.length > 0 ? destinations[0] : null;
-    setSearchTerm(destination?.label ?? e.target.value);
-    setIsOpen(true);
     if (destination) {
+      setSearchTerm(destination.label);
       setValue(name, destination.value);
       setSelectedValue(destination.value);
     }
@@ -49,16 +48,19 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const handleOptionClick = (option: { value: string; label: string }) => {
     setSearchTerm(option.label);
     setValue(name, option.value);
-    setIsOpen(false);
     setSelectedValue(option.value);
+    setIsOpen(false);
   };
 
-  const handleInputFocus = () => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchFocus = () => {
     setIsOpen(true);
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    // Delay blur to allow click on options
+  const handleSearchBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setTimeout(() => {
       if (!selectRef.current?.contains(e.relatedTarget)) {
         setIsOpen(false);
@@ -78,11 +80,16 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
         id={name}
         className={classes.select}
         value={searchTerm}
-        onFocus={handleInputFocus}
+        onFocus={handleSearchFocus}
+        onBlur={handleSearchBlur}
+        onChange={handleSearchChange}
         autoComplete="off"
+      />
+      <input
+        type="text"
+        hidden
         {...register(name, {
-          onChange: handleInputChange,
-          onBlur: handleBlur,
+          onChange: handleValueChange,
         })}
       />
       {isOpen && (
