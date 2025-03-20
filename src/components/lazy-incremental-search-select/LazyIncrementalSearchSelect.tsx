@@ -27,12 +27,6 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const loaded = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const value = watch(name);
-  useEffect(() => {
-    if (!loaded.current) return;
-    setValue(name, value);
-  }, [value]);
-
   useEffect(() => {
     if (!searchTerm) {
       setFilteredOptions(options);
@@ -45,14 +39,23 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
     );
   }, [searchTerm, options]);
 
-  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const destinations = options.filter((x) => x.value === e.target.value);
+  const reflectValueToSearchTerm = (incoming: string) => {
+    const destinations = options.filter((x) => x.value === incoming);
     const destination = destinations.length > 0 ? destinations[0] : null;
     if (destination) {
       setSearchTerm(destination.label);
       setValue(name, destination.value);
     }
   };
+
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    reflectValueToSearchTerm(e.target.value);
+  };
+
+  const value = watch(name);
+  useEffect(() => {
+    reflectValueToSearchTerm(value);
+  }, [value]);
 
   const handleOptionClick = (option: { value: string; label: string }) => {
     setSearchTerm(option.label);

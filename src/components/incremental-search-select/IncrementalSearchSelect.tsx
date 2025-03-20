@@ -22,11 +22,6 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const value = watch(name);
-  useEffect(() => {
-    setValue(name, value);
-  }, [value]);
-
   useEffect(() => {
     if (!searchTerm) {
       setFilteredOptions(options);
@@ -39,14 +34,23 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
     );
   }, [searchTerm, options]);
 
-  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const destinations = options.filter((x) => x.value === e.target.value);
+  const reflectValueToSearchTerm = (incoming: string) => {
+    const destinations = options.filter((x) => x.value === incoming);
     const destination = destinations.length > 0 ? destinations[0] : null;
     if (destination) {
       setSearchTerm(destination.label);
       setValue(name, destination.value);
     }
   };
+
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    reflectValueToSearchTerm(e.target.value);
+  };
+
+  const value = watch(name);
+  useEffect(() => {
+    reflectValueToSearchTerm(value);
+  }, [value]);
 
   const handleOptionClick = (option: { value: string; label: string }) => {
     setSearchTerm(option.label);
@@ -97,20 +101,16 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
         />
         {isOpen && (
           <ul className={classes.list}>
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
-                <li
-                  className={classes.option}
-                  onClick={() => handleOptionClick(option)}
-                >
-                  {option.label}
-                </li>
-              ))
-            ) : (
-              <li className={`${classes.option} ${classes.disabled}`}>
-                No options
-              </li>
-            )}
+            {filteredOptions.length > 0
+              ? filteredOptions.map((option) => (
+                  <li
+                    className={classes.option}
+                    onClick={() => handleOptionClick(option)}
+                  >
+                    {option.label}
+                  </li>
+                ))
+              : null}
           </ul>
         )}
       </div>

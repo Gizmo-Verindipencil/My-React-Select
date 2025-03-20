@@ -12,12 +12,10 @@ interface SelectProps {
 }
 
 const Select: React.FC<SelectProps> = ({ name, options, label }) => {
-  const { register, setValue, watch } = useFormContext();
+  const { register, watch } = useFormContext();
 
   const value = watch(name);
-  useEffect(() => {
-    setValue(name, value);
-  }, [value]);
+  useEffect(() => {}, [value]);
 
   return (
     <div className={classes.container}>
