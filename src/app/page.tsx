@@ -2,6 +2,7 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { Select } from "../components/select";
+import { Showcase } from "../layouts/showcase";
 
 export default function Home() {
   type props = {
@@ -27,8 +28,9 @@ export default function Home() {
     <body>
       <h1>Select Components</h1>
       <FormProvider {...methods}>
-        <h2>plain</h2>
-        <Select label="Flavor" options={flavors} name="flavor" />
+        <Showcase label="Simple Select">
+          <Select label="Flavor" options={flavors} name="flavor" />
+        </Showcase>
       </FormProvider>
     </body>
   );
