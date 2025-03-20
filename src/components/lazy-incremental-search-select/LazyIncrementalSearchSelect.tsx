@@ -27,18 +27,6 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const loaded = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadOptions = useCallback(async () => {
-    if (isLoading) return;
-    setIsLoading(true);
-    try {
-      const options = await fetch();
-      setOptions(options);
-    } finally {
-      setIsLoading(false);
-      loaded.current = true;
-    }
-  }, [fetch, isLoading]);
-
   useEffect(() => {
     if (!searchTerm) {
       setFilteredOptions(options);
