@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import React from "react";
+import { useFormContext } from "react-hook-form";
 
 interface SelectProps {
   name: string;
@@ -14,7 +14,7 @@ const Select: React.FC<SelectProps> = ({ name, options, label }) => {
 
   return (
     <div>
-      {label && < label htmlFor={name}>{label}</label >}
+      {label && <label htmlFor={name}>{label}</label>}
       <select id={name} {...register(name)}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>

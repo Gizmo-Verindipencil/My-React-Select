@@ -5,7 +5,7 @@ import { Select } from "../components/select";
 
 export default function Home() {
   type props = {
-    flavor: string
+    flavor: string;
   };
 
   const flavors = [
@@ -15,14 +15,14 @@ export default function Home() {
   ];
 
   const init: props = {
-    flavor: flavors[0].value
-  }
+    flavor: flavors[0].value,
+  };
 
   const methods = useForm({
     mode: "onTouched",
     defaultValues: init,
   });
-  
+
   return (
     <FormProvider {...methods}>
       <Select label="Flavor" options={flavors} name="flavor" />
