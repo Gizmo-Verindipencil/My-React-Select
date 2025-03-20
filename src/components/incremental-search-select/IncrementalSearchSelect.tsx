@@ -24,6 +24,10 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!searchTerm) {
+      setFilteredOptions(options);
+      return;
+    }
     setFilteredOptions(
       options.filter((option) =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -32,7 +36,10 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   }, [searchTerm, options]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    const labels = options
+      .filter((x) => e.target.value === x.value)
+      .map((x) => x.label);
+    setSearchTerm(labels.length > 0 ? labels[0] : "");
     setIsOpen(true);
     setSelectedValue(null); // Clear selected value when typing
   };
@@ -79,7 +86,6 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
       {isOpen && (
         <ul
           style={{
-            position: "absolute",
             top: "100%",
             left: "0",
             width: "90%",
