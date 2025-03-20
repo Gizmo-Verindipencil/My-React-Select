@@ -24,8 +24,12 @@ export default function Home() {
   });
 
   return (
-    <FormProvider {...methods}>
-      <Select label="Flavor" options={flavors} name="flavor" />
-    </FormProvider>
+    <body>
+      <h1>Select Components</h1>
+      <FormProvider {...methods}>
+        <h2>plain</h2>
+        <Select label="Flavor" options={flavors} name="flavor" />
+      </FormProvider>
+    </body>
   );
 }
