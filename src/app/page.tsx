@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <body>
-      <h1>Select Components</h1>
+      <h1>Component Showcases</h1>
       <FormProvider {...methods}>
         <Showcase label="Simple Select">
           <Select label="Flavor" options={flavors} name="flavor" />
