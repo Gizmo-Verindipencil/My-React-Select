@@ -1,26 +1,31 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 
-import classes from "./incremental-search-select.module.scss";
+import classes from "./lazy-incremental-search-select.module.scss";
+
+type option = { value: string; label: string };
 
 interface IncrementalSearchSelectProps {
   name: string;
-  options: { value: string; label: string }[];
+  fetch: () => Promise<option[]>;
   label?: string;
 }
 
 const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   name,
-  options,
+  fetch,
   label,
 }) => {
   const { register, setValue, watch } = useFormContext();
   const [searchTerm, setSearchTerm] = useState("");
+  const [options, setOptions] = useState<option[]>([]);
   const [filteredOptions, setFilteredOptions] = useState(options);
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
+  const loaded = useRef(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!searchTerm) {
@@ -62,8 +67,13 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
     setSearchTerm(e.target.value);
   };
 
-  const handleSearchFocus = () => {
+  const handleSearchFocus = async () => {
     setIsOpen(true);
+    if (loaded.current || isLoading) return;
+    setIsLoading(true);
+    setOptions(await fetch());
+    setIsLoading(false);
+    loaded.current = true;
   };
 
   const handleSearchBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -85,7 +95,7 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
         <input
           type="text"
           id={name}
-          className={classes.select}
+          className={`${classes.select} ${loaded.current || isLoading ? classes.loaded : ""}`}
           value={searchTerm}
           onFocus={handleSearchFocus}
           onBlur={handleSearchBlur}
@@ -99,21 +109,23 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
             onChange: handleValueChange,
           })}
         />
-        {isOpen && (
+        {isOpen ? (
           <ul className={classes.list}>
-            {filteredOptions.length > 0
-              ? filteredOptions.map((option) => (
-                  <li
-                    key={option.value}
-                    className={classes.option}
-                    onClick={() => handleOptionClick(option)}
-                  >
-                    {option.label}
-                  </li>
-                ))
-              : null}
+            {isLoading ? (
+              <li className={classes.option}>Loading</li>
+            ) : filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <li
+                  key={option.value}
+                  className={classes.option}
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.label}
+                </li>
+              ))
+            ) : null}
           </ul>
-        )}
+        ) : null}
       </div>
     </div>
   );

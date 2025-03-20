@@ -5,6 +5,7 @@ import { LazySelect } from "@/components/lazy-select";
 import { IncrementalSearchSelect } from "@/components/incremental-search-select";
 import { Select } from "@/components/select";
 import { Showcase } from "@/layouts/showcase";
+import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
 
 export default function Home() {
   type props = {
@@ -12,7 +13,7 @@ export default function Home() {
   };
 
   const flavors = [
-    { value: "", label: "" },
+    { value: "none", label: "" },
     { value: "chocolate", label: "Chocolate" },
     { value: "vanilla", label: "Vanilla" },
     { value: "strawberry", label: "Strawberry" },
@@ -44,6 +45,17 @@ export default function Home() {
           </Showcase>
           <Showcase label="Lazy Select">
             <LazySelect
+              label="Flavor"
+              fetch={async () => {
+                return new Promise<typeof flavors>((resolve) => {
+                  setTimeout(() => resolve(flavors), 2000);
+                });
+              }}
+              name="flavor"
+            />
+          </Showcase>
+          <Showcase label="Lazy Incremental Search Select">
+            <LazyIncrementalSearchSelect
               label="Flavor"
               fetch={async () => {
                 return new Promise<typeof flavors>((resolve) => {

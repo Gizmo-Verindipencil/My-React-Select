@@ -14,16 +14,10 @@ interface LazySelectProps {
 }
 
 const LazySelect: React.FC<LazySelectProps> = ({ name, fetch, label }) => {
-  const { register, setValue, watch } = useFormContext();
+  const { register } = useFormContext();
   const loaded = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState<option[]>([]);
-
-  const value = watch(name);
-  useEffect(() => {
-    if (!loaded) return;
-    setValue(name, value);
-  }, [value]);
 
   const handleFocus = async () => {
     if (loaded.current || isLoading) return;
