@@ -38,10 +38,12 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const destinations = options.filter((x) => x.value === e.target.value);
     const destination = destinations.length > 0 ? destinations[0] : null;
-    setSearchTerm(destination?.label ?? "");
+    setSearchTerm(destination?.label ?? e.target.value);
     setIsOpen(true);
-    setValue(name, destination?.value ?? "");
-    setSelectedValue(destination?.value ?? null);
+    if (destination) {
+      setValue(name, destination.value);
+      setSelectedValue(destination.value);
+    }
   };
 
   const handleOptionClick = (option: { value: string; label: string }) => {
