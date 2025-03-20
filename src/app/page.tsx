@@ -1,7 +1,7 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
-import Select from "../components/select/Select";
+import { Select } from "../components/select";
 
 export default function Home() {
   type props = {
@@ -25,7 +25,7 @@ export default function Home() {
   
   return (
     <FormProvider {...methods}>
-      <Select label="Favorite flavor:" options={flavors} name="flavor" />
+      <Select label="Flavor" options={flavors} name="flavor" />
     </FormProvider>
   );
 }
