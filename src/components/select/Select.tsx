@@ -14,6 +14,14 @@ interface SelectProps {
 const Select: React.FC<SelectProps> = ({ name, options, label }) => {
   const { register } = useFormContext();
 
+  /**
+   * FIXME:
+   * Select と同じ name が設定された LazyIncrementalSearchSelect が同じページにある場合
+   * Select の初回選択は機能しない。選択したアイテムは反映されず、value も初期値のまま不変
+   * この操作を一度行った後の選択は反映される。バグではあるが、同 name を複数のコントロール
+   * に割り当てるケースがないと思われる為、一旦このバグは放置する
+   */
+
   return (
     <div className={classes.container}>
       {label && (
