@@ -75,53 +75,43 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
           {label}
         </label>
       )}
-      <input
-        type="text"
-        id={name}
-        className={classes.select}
-        value={searchTerm}
-        onFocus={handleSearchFocus}
-        onBlur={handleSearchBlur}
-        onChange={handleSearchChange}
-        autoComplete="off"
-      />
-      <input
-        type="text"
-        hidden
-        {...register(name, {
-          onChange: handleValueChange,
-        })}
-      />
-      {isOpen && (
-        <ul
-          style={{
-            backgroundColor: "white",
-            border: "1px solid #9e9e9e",
-            borderRadius: "0.375rem",
-            left: "0",
-            listStyleType: "none",
-            margin: 0,
-            padding: 0,
-            top: "100%",
-            width: "90%",
-            zIndex: 10,
-          }}
-        >
-          {filteredOptions.length > 0 ? (
-            filteredOptions.map((option) => (
-              <li
-                key={option.value}
-                style={{ padding: "0.5rem", cursor: "pointer" }}
-                onClick={() => handleOptionClick(option)}
-              >
-                {option.label}
+      <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+        <input
+          type="text"
+          id={name}
+          className={classes.select}
+          value={searchTerm}
+          onFocus={handleSearchFocus}
+          onBlur={handleSearchBlur}
+          onChange={handleSearchChange}
+          autoComplete="off"
+        />
+        <input
+          type="text"
+          hidden
+          {...register(name, {
+            onChange: handleValueChange,
+          })}
+        />
+        {isOpen && (
+          <ul className={classes.list}>
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => (
+                <li
+                  className={classes.option}
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.label}
+                </li>
+              ))
+            ) : (
+              <li className={`${classes.option} ${classes.disabled}`}>
+                No options
               </li>
-            ))
-          ) : (
-            <li style={{ padding: "0.5rem", color: "gray" }}>No options</li>
-          )}
-        </ul>
-      )}
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
