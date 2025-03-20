@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 import classes from "./select.module.scss";
@@ -12,7 +12,12 @@ interface SelectProps {
 }
 
 const Select: React.FC<SelectProps> = ({ name, options, label }) => {
-  const { register } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
+
+  const value = watch(name);
+  useEffect(() => {
+    setValue(name, value);
+  }, [value]);
 
   return (
     <div className={classes.container}>

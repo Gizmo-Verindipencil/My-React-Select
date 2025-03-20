@@ -95,16 +95,16 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
       {isOpen && (
         <ul
           style={{
-            top: "100%",
-            left: "0",
-            width: "90%",
             backgroundColor: "white",
             border: "1px solid #9e9e9e",
             borderRadius: "0.375rem",
-            zIndex: 10,
+            left: "0",
             listStyleType: "none",
-            padding: 0,
             margin: 0,
+            padding: 0,
+            top: "100%",
+            width: "90%",
+            zIndex: 10,
           }}
         >
           {filteredOptions.length > 0 ? (
