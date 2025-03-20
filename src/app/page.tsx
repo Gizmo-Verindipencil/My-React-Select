@@ -8,10 +8,6 @@ import { Showcase } from "@/layouts/showcase";
 import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
 
 export default function Home() {
-  type props = {
-    flavor: string;
-  };
-
   const flavors = [
     { value: "none", label: "" },
     { value: "chocolate", label: "Chocolate" },
@@ -19,28 +15,25 @@ export default function Home() {
     { value: "strawberry", label: "Strawberry" },
   ];
 
-  const init: props = {
-    flavor: flavors[0].value,
-  };
-
   const methods = useForm({
     mode: "onTouched",
-    defaultValues: init,
+    defaultValues: {},
   });
 
+  let i = 1;
   return (
     <>
       <h1>Component Showcases</h1>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <FormProvider {...methods}>
           <Showcase label="Select">
-            <Select label="Flavor" options={flavors} name="flavor" />
+            <Select label="Flavor" options={flavors} name={`flavor${i++}`} />
           </Showcase>
           <Showcase label="Incremental Search Select">
             <IncrementalSearchSelect
               label="Flavor"
               options={flavors}
-              name="flavor"
+              name={`flavor${i++}`}
             />
           </Showcase>
           <Showcase label="Lazy Select">
@@ -51,7 +44,7 @@ export default function Home() {
                   setTimeout(() => resolve(flavors), 2000);
                 });
               }}
-              name="flavor"
+              name={`flavor${i++}`}
             />
           </Showcase>
           <Showcase label="Lazy Incremental Search Select">
@@ -62,7 +55,7 @@ export default function Home() {
                   setTimeout(() => resolve(flavors), 2000);
                 });
               }}
-              name="flavor"
+              name={`flavor${i++}`}
             />
           </Showcase>
         </FormProvider>
