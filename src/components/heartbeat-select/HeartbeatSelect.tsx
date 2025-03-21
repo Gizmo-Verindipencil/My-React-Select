@@ -3,15 +3,19 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-import classes from "./beat-select.module.scss";
+import classes from "./heartbeat-select.module.scss";
 
-interface BeatSelectProps {
+interface HeartbeatSelectProps {
   name: string;
   options: { value: string; label: string }[];
   label?: string;
 }
 
-const Select: React.FC<BeatSelectProps> = ({ name, options, label }) => {
+const HeartbeatSelect: React.FC<HeartbeatSelectProps> = ({
+  name,
+  options,
+  label,
+}) => {
   const { register } = useFormContext();
 
   return (
@@ -32,4 +36,4 @@ const Select: React.FC<BeatSelectProps> = ({ name, options, label }) => {
   );
 };
 
-export default Select;
+export default HeartbeatSelect;
