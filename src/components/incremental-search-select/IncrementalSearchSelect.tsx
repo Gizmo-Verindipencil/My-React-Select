@@ -59,6 +59,7 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(name, "");
     setSearchTerm(e.target.value);
   };
 
