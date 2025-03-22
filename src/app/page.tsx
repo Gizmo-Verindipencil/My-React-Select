@@ -7,6 +7,7 @@ import { Select } from "@/components/select";
 import { Showcase } from "@/layouts/showcase";
 import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
 import { HeartbeatSelect } from "@/components/heartbeat-select";
+import { RainbowSelect } from "@/components/rainbow-select/select";
 
 export default function Home() {
   const flavors = [
@@ -61,6 +62,13 @@ export default function Home() {
           </Showcase>
           <Showcase label="Heartbeat Select">
             <HeartbeatSelect
+              label="Flavor"
+              options={flavors}
+              name={`flavor${i++}`}
+            />
+          </Showcase>
+          <Showcase label="Rainbow Select">
+            <RainbowSelect
               label="Flavor"
               options={flavors}
               name={`flavor${i++}`}
