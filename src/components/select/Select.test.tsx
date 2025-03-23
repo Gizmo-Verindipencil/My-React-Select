@@ -59,17 +59,12 @@ describe("Select Component", () => {
     );
 
     const selectElement = screen.getByRole("combobox");
-
-    // `fireEvent.change` の代わりに `userEvent.selectOptions` を使用
     await userEvent.selectOptions(selectElement, "option2");
-
-    // `react-hook-form` の状態が更新されるまで待つ
     await waitFor(() =>
       expect(result.current.getValues("testSelect")).toBe("option2"),
     );
 
     fireEvent.click(screen.getByText("Submit"));
-
     await waitFor(() =>
       expect(onSubmit).toHaveBeenCalledWith(
         expect.objectContaining({
