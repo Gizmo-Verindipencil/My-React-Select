@@ -7,7 +7,7 @@ import { Select } from "@/components/select";
 import { Showcase } from "@/layouts/showcase";
 import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
 import { HeartbeatSelect } from "@/components/heartbeat-select";
-import { RainbowSelect } from "@/components/rainbow-select/select";
+import { RainbowSelect } from "@/components/rainbow-select";
 
 export default function Home() {
   const flavors = [
