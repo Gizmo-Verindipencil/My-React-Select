@@ -1,7 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, renderHook, screen, fireEvent } from "@testing-library/react";
 import { useForm, FormProvider } from "react-hook-form";
 import Select from "./Select";
 import "@testing-library/jest-dom";
+
+const { result } = renderHook(() => useForm());
 
 describe("Select Component", () => {
   const options = [
@@ -11,9 +13,8 @@ describe("Select Component", () => {
   ];
 
   it("renders the select component with options", () => {
-    const methods = useForm();
     render(
-      <FormProvider {...methods}>
+      <FormProvider {...result.current}>
         <Select name="testSelect" options={options} />
       </FormProvider>,
     );
@@ -27,9 +28,8 @@ describe("Select Component", () => {
   });
 
   it("renders with a label if provided", () => {
-    const methods = useForm();
     render(
-      <FormProvider {...methods}>
+      <FormProvider {...result.current}>
         <Select name="testSelect" options={options} label="Test Label" />
       </FormProvider>,
     );
@@ -39,12 +39,11 @@ describe("Select Component", () => {
   });
 
   it("updates the form value when an option is selected", async () => {
-    const methods = useForm();
     const onSubmit = jest.fn();
 
     render(
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <FormProvider {...result.current}>
+        <form onSubmit={result.current.handleSubmit(onSubmit)}>
           <Select name="testSelect" options={options} />
           <button type="submit">Submit</button>
         </form>
@@ -63,9 +62,8 @@ describe("Select Component", () => {
   });
 
   it("renders without errors when no options are provided", () => {
-    const methods = useForm();
     render(
-      <FormProvider {...methods}>
+      <FormProvider {...result.current}>
         <Select name="testSelect" options={[]} />
       </FormProvider>,
     );
