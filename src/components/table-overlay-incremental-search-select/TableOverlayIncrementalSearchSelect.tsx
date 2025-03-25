@@ -111,7 +111,7 @@ const TableOverlayIncrementalSearchSelect: React.FC<
                       onClick={() => handleOptionClick(option)}
                     >
                       {option.labels.map((label, index) => (
-                        <td key={index} className={classes.option}>
+                        <td key={index} className={classes.cell}>
                           {label}
                         </td>
                       ))}
