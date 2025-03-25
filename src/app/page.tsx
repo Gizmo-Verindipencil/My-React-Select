@@ -8,6 +8,7 @@ import { Showcase } from "@/layouts/showcase";
 import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
 import { HeartbeatSelect } from "@/components/heartbeat-select";
 import { RainbowSelect } from "@/components/rainbow-select";
+import { TableOverlayIncrementalSearchSelect } from "@/components/table-overlay-incremental-search-select";
 
 export default function Home() {
   const flavors = [
@@ -16,6 +17,15 @@ export default function Home() {
     { value: "vanilla", label: "Vanilla" },
     { value: "strawberry", label: "Strawberry" },
   ];
+
+  const extendedFlavors = flavors.map((x) => {
+    return {
+      value: x.value,
+      labels: Array.from({ length: 3 }).map((_, i) =>
+        x.label ? `${x.label}${i + 1}` : "",
+      ),
+    };
+  });
 
   const methods = useForm({
     mode: "onTouched",
@@ -71,6 +81,13 @@ export default function Home() {
             <RainbowSelect
               label="Flavor"
               options={flavors}
+              name={`flavor${i++}`}
+            />
+          </Showcase>
+          <Showcase label="Table Overlay Incremental Search Select">
+            <TableOverlayIncrementalSearchSelect
+              label="Flavor"
+              options={extendedFlavors}
               name={`flavor${i++}`}
             />
           </Showcase>
