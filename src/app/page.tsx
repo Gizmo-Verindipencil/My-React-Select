@@ -10,6 +10,7 @@ import { HeartbeatSelect } from "@/components/heartbeat-select";
 import { RainbowSelect } from "@/components/rainbow-select";
 import { ResetButton } from "@/components/reset-button";
 import { TableOverlayIncrementalSearchSelect } from "@/components/table-overlay-incremental-search-select";
+import { act } from "react";
 
 export default function Home() {
   const flavors = [
@@ -28,16 +29,27 @@ export default function Home() {
     };
   });
 
+  let i = 1;
+  const defaultValues: { [key: string]: null } = {};
+  const addKey = (key: string) => {
+    const actualKey = `${key}${i++}`;
+    defaultValues[actualKey] = null;
+    return actualKey;
+  };
+
   const methods = useForm({
     mode: "onTouched",
-    defaultValues: {},
+    defaultValues: defaultValues,
   });
 
-  let i = 1;
+  const handleReset = () => {
+    methods.reset(defaultValues);
+  };
+
   return (
     <FormProvider {...methods}>
       <h1>Component Showcases</h1>
-      <ResetButton />
+      <ResetButton onClick={handleReset} />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Showcase label="Select">
           <Select label="Flavor" options={flavors} name={`flavor${i++}`} />
@@ -46,7 +58,7 @@ export default function Home() {
           <IncrementalSearchSelect
             label="Flavor"
             options={flavors}
-            name={`flavor${i++}`}
+            name={addKey("flavor")}
           />
         </Showcase>
         <Showcase label="Lazy Select">
@@ -57,7 +69,7 @@ export default function Home() {
                 setTimeout(() => resolve(flavors), 2000);
               });
             }}
-            name={`flavor${i++}`}
+            name={addKey("flavor")}
           />
         </Showcase>
         <Showcase label="Lazy Incremental Search Select">
@@ -68,28 +80,28 @@ export default function Home() {
                 setTimeout(() => resolve(flavors), 2000);
               });
             }}
-            name={`flavor${i++}`}
+            name={addKey("flavor")}
           />
         </Showcase>
         <Showcase label="Heartbeat Select">
           <HeartbeatSelect
             label="Flavor"
             options={flavors}
-            name={`flavor${i++}`}
+            name={addKey("flavor")}
           />
         </Showcase>
         <Showcase label="Rainbow Select">
           <RainbowSelect
             label="Flavor"
             options={flavors}
-            name={`flavor${i++}`}
+            name={addKey("flavor")}
           />
         </Showcase>
         <Showcase label="Table Overlay Incremental Search Select">
           <TableOverlayIncrementalSearchSelect
             label="Flavor"
             options={extendedFlavors}
-            name={`flavor${i++}`}
+            name={addKey("flavor")}
           />
         </Showcase>
       </div>

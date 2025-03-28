@@ -1,13 +1,14 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
 
 import classes from "./reset-button.module.scss";
 
-const ResetButton: React.FC = () => {
-  const { reset } = useFormContext();
+interface ResetButtonProps {
+  onClick: () => void;
+}
 
+const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
   return (
-    <button type="button" className={classes.button} onClick={() => reset()}>
+    <button type="button" className={classes.button} onClick={onClick}>
       RESET
     </button>
   );
