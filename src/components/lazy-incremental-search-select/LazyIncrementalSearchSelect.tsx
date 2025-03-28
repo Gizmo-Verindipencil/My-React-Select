@@ -45,6 +45,9 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
     if (destination) {
       setSearchTerm(destination.label);
       setValue(name, destination.value);
+    } else {
+      setSearchTerm("");
+      setValue(name, null);
     }
   };
 

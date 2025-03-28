@@ -40,6 +40,9 @@ const TableOverlayIncrementalSearchSelect: React.FC<
     if (destination) {
       setSearchTerm(destination.labels[0]);
       setValue(name, destination.value);
+    } else {
+      setSearchTerm("");
+      setValue(name, null);
     }
   };
 
