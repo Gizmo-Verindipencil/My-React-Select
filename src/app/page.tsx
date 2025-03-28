@@ -1,16 +1,15 @@
 "use client";
 
-import { FormProvider, useForm } from "react-hook-form";
-import { LazySelect } from "@/components/lazy-select";
-import { IncrementalSearchSelect } from "@/components/incremental-search-select";
-import { Select } from "@/components/select";
-import { Showcase } from "@/layouts/showcase";
-import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
 import { HeartbeatSelect } from "@/components/heartbeat-select";
+import { IncrementalSearchSelect } from "@/components/incremental-search-select";
+import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-search-select";
+import { LazySelect } from "@/components/lazy-select";
 import { RainbowSelect } from "@/components/rainbow-select";
 import { ResetButton } from "@/components/reset-button";
+import { Select } from "@/components/select";
 import { TableOverlayIncrementalSearchSelect } from "@/components/table-overlay-incremental-search-select";
-import { act } from "react";
+import { Showcase } from "@/layouts/showcase";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function Home() {
   const flavors = [
