@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import classes from "./lazy-incremental-search-select.module.scss";
@@ -46,7 +46,6 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
       setSearchTerm(destination.label);
       setValue(name, destination.value);
     } else {
-      setSearchTerm("");
       setValue(name, null);
     }
   };
