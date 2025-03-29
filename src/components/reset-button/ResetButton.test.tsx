@@ -4,10 +4,11 @@ import ResetButton from "./ResetButton";
 
 describe("ResetButton Component", () => {
   it("renders the button with the correct text", () => {
+    const label = "test";
     const { getByText } = render(
       <ResetButton label="test" onClick={() => {}} />,
     );
-    const buttonElement = getByText("RESET");
+    const buttonElement = getByText(label);
     expect(buttonElement).toBeInTheDocument();
   });
 
