@@ -4,15 +4,20 @@ import ResetButton from "./ResetButton";
 
 describe("ResetButton Component", () => {
   it("renders the button with the correct text", () => {
-    const { getByText } = render(<ResetButton onClick={() => {}} />);
+    const { getByText } = render(
+      <ResetButton label="test" onClick={() => {}} />,
+    );
     const buttonElement = getByText("RESET");
     expect(buttonElement).toBeInTheDocument();
   });
 
   it("calls the onClick function when the button is clicked", () => {
+    const label = "test";
     const onClickMock = jest.fn();
-    const { getByText } = render(<ResetButton onClick={onClickMock} />);
-    const buttonElement = getByText("RESET");
+    const { getByText } = render(
+      <ResetButton label={label} onClick={onClickMock} />,
+    );
+    const buttonElement = getByText(label);
     fireEvent.click(buttonElement);
     expect(onClickMock).toHaveBeenCalledTimes(1);
   });

@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <FormProvider {...methods}>
       <h1>Component Showcases</h1>
-      <ResetButton onClick={handleReset} />
+        <ResetButton label="RESET" onClick={handleReset} />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <Showcase label="Select">
           <Select label="Flavor" options={flavors} name={`flavor${i++}`} />
