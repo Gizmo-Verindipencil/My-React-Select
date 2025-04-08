@@ -71,12 +71,8 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
                   key={option.value}
                   className={classes.option}
                   style={{
-                    height: 20,
                     left: centerX + x,
-                    position: "absolute",
                     top: centerY + y,
-                    textDecoration: "underline",
-                    zIndex: 5,
                   }}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
