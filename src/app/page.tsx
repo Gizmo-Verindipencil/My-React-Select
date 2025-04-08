@@ -109,7 +109,11 @@ export default function Home() {
           />
         </Showcase>
         <Showcase label="Revolver Select">
-          <RevolverSelect options={flavors} />
+          <RevolverSelect
+            label="Flavor"
+            options={flavors}
+            name={addKey("flavor")}
+          />
         </Showcase>
       </div>
     </FormProvider>

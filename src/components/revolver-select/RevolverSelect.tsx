@@ -2,73 +2,92 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
+import { useFormContext } from "react-hook-form";
+import classes from "./revolver-select.module.scss";
 
-type Option = {
-  label: string;
-  value: string;
-};
+interface RevolverSelectProps {
+  name: string;
+  options: { value: string; label: string }[];
+  label?: string;
+}
 
-type Props = {
-  options: Option[];
-  initialValue?: string;
-};
-
-const RevolverSelect: React.FC<Props> = ({ options, initialValue }) => {
-  const [selected, setSelected] = useState<string>(
-    initialValue ?? options[0]?.value,
-  );
+const RevolverSelect: React.FC<RevolverSelectProps> = ({
+  name,
+  options,
+  label,
+}) => {
+  const { register, setValue, watch } = useFormContext();
+  const selected = watch(name) ?? options[0]?.value;
   const [focused, setFocused] = useState(false);
 
-  const radius = 80; // px
+  const radius = 80;
   const centerX = 100;
   const centerY = 100;
 
   const selectedOption = options.find((o) => o.value === selected);
 
-  const handleFocus = () => setFocused(true);
-  const handleBlur = () => setFocused(false);
-
   return (
     <div
-      className="relative w-48 h-48"
-      onMouseEnter={handleFocus}
-      onMouseLeave={handleBlur}
+      className={classes.container}
+      onMouseEnter={() => setFocused(true)}
+      onMouseLeave={() => setFocused(false)}
     >
-      {/* 中央の選択済み表示 */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-        <div className="bg-white border border-gray-400 px-4 py-2 rounded-full shadow">
-          {selectedOption?.label}
-        </div>
+      {label && (
+        <label htmlFor={name} className={classes.label}>
+          {label}
+        </label>
+      )}
+
+      {/* フォームに値を渡す hidden input */}
+      <input type="hidden" {...register(name)} value={selected} />
+
+      {/* 中央の選択中表示 */}
+      <div
+        className={classes.select}
+        style={{
+          width: 200,
+          height: 200,
+          position: "relative",
+          borderRadius: "9999px",
+          textAlign: "center",
+          lineHeight: "200px",
+        }}
+      >
+        {selectedOption?.label}
+
+        {/* 回転式オプション表示 */}
+        <AnimatePresence>
+          {focused &&
+            options.map((option, index) => {
+              if (option.value === selected) return null; // 選択済みは中央に表示済み
+
+              const angle = (index / options.length) * 2 * Math.PI;
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
+
+              return (
+                <motion.button
+                  key={option.value}
+                  className={classes.option}
+                  style={{
+                    position: "absolute",
+                    left: centerX + x,
+                    top: centerY + y,
+                    transform: "translate(-50%, -50%)",
+                    zIndex: 5,
+                  }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  onClick={() => setValue(name, option.value)}
+                >
+                  {option.label}
+                </motion.button>
+              );
+            })}
+        </AnimatePresence>
       </div>
-
-      {/* 回転アイテム */}
-      <AnimatePresence>
-        {focused &&
-          options.map((option, index) => {
-            const angle = (index / options.length) * 2 * Math.PI;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-
-            return (
-              <motion.button
-                key={option.value}
-                className="absolute px-3 py-1 bg-blue-500 text-white rounded-full shadow hover:bg-blue-600"
-                style={{
-                  left: centerX + x,
-                  top: centerY + y,
-                  transform: "translate(-50%, -50%)",
-                }}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                onClick={() => setSelected(option.value)}
-              >
-                {option.label}
-              </motion.button>
-            );
-          })}
-      </AnimatePresence>
     </div>
   );
 };
