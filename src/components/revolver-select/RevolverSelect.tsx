@@ -26,8 +26,8 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
   return (
     <div
       className={classes.container}
-      onMouseEnter={() => setFocused(true)}
-      onMouseLeave={() => setFocused(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     >
       {label && (
         <label htmlFor={name} className={classes.label}>
@@ -50,7 +50,11 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
           lineHeight: "200px",
         }}
       >
-        <span className={classes.selected}>{selectedOption?.label}</span>
+        <input
+          type="text"
+          className={classes.selected}
+          value={selectedOption?.label}
+        />
 
         {/* 回転式オプション表示 */}
         <AnimatePresence>
