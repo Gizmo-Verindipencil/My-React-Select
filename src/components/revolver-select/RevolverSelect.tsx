@@ -20,10 +20,6 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
   const selected = watch(name) ?? options[0]?.value;
   const [focused, setFocused] = useState(false);
 
-  const radius = 80;
-  const centerX = 100;
-  const centerY = 100;
-
   const selectedOption = options.find((o) => o.value === selected);
 
   return (
