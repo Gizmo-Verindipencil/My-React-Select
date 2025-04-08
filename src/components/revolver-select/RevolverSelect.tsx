@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import classes from "./revolver-select.module.scss";
 
@@ -22,6 +22,10 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
 
   const selectedOption = options.find((o) => o.value === selected);
   const [width, height] = [450, 40];
+
+  const textChangeHandler = useCallback(() => {
+    setValue(name, null);
+  }, []);
 
   return (
     <div
@@ -54,6 +58,7 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
           type="text"
           className={classes.selected}
           value={selectedOption?.label}
+          onChange={textChangeHandler}
         />
 
         {/* 回転式オプション表示 */}
