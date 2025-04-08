@@ -18,6 +18,7 @@ export default function Home() {
     { value: "chocolate", label: "Chocolate" },
     { value: "vanilla", label: "Vanilla" },
     { value: "strawberry", label: "Strawberry" },
+    { value: "lemon", label: "Lemon" },
   ];
 
   const extendedFlavors = flavors.map((x) => {
