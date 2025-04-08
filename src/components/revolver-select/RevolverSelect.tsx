@@ -45,23 +45,27 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
       <div
         className={classes.select}
         style={{
-          width: 200,
-          height: 200,
+          width: 450,
+          height: 40,
           position: "relative",
-          borderRadius: "9999px",
+          borderRadius: "7px",
           textAlign: "center",
           lineHeight: "200px",
         }}
       >
-        {selectedOption?.label}
+        <span className={classes.selected}>{selectedOption?.label}</span>
 
         {/* 回転式オプション表示 */}
         <AnimatePresence>
           {focused &&
             options.map((option, index) => {
-              if (option.value === selected) return null; // 選択済みは中央に表示済み
+              if (option.value === selected) return null;
 
               const angle = (index / options.length) * 2 * Math.PI;
+              const radius = 80;
+              const centerX = 450 / 2; // select box の幅に合わせる
+              const centerY = 40 / 2; // select box の高さに合わせる
+
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
 

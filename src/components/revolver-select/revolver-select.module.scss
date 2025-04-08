@@ -22,6 +22,12 @@
   padding: 0.5rem 1rem;
   width: 90%;
 
+  .selected {
+    display: block;
+    text-align: justify;
+    transform: translateY(-90px);
+  }
+
   &:focus {
     outline: none;
     border-color: #2563eb;
