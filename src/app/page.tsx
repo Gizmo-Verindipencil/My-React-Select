@@ -6,6 +6,7 @@ import { LazyIncrementalSearchSelect } from "@/components/lazy-incremental-searc
 import { LazySelect } from "@/components/lazy-select";
 import { RainbowSelect } from "@/components/rainbow-select";
 import { ResetButton } from "@/components/reset-button";
+import { RevolverSelect } from "@/components/revolver-select";
 import { Select } from "@/components/select";
 import { TableOverlayIncrementalSearchSelect } from "@/components/table-overlay-incremental-search-select";
 import { Showcase } from "@/layouts/showcase";
@@ -106,6 +107,9 @@ export default function Home() {
             options={extendedFlavors}
             name={addKey("flavor")}
           />
+        </Showcase>
+        <Showcase label="Revolver Select">
+          <RevolverSelect options={flavors} />
         </Showcase>
       </div>
     </FormProvider>
