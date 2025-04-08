@@ -21,6 +21,7 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
   const [focused, setFocused] = useState(false);
 
   const selectedOption = options.find((o) => o.value === selected);
+  const [width, height] = [450, 40];
 
   return (
     <div
@@ -41,8 +42,8 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
       <div
         className={classes.select}
         style={{
-          width: 450,
-          height: 40,
+          width: width,
+          height: height,
           position: "relative",
           borderRadius: "7px",
           textAlign: "center",
@@ -59,8 +60,8 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
 
               const angle = (index / options.length) * 2 * Math.PI;
               const radius = 80;
-              const centerX = 450 / 2; // select box の幅に合わせる
-              const centerY = 40 / 2; // select box の高さに合わせる
+              const centerX = width / 2;
+              const centerY = height / 2;
 
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
