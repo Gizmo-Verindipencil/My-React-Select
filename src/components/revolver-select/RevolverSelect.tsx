@@ -60,8 +60,8 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
 
               const angle = (index / options.length) * 2 * Math.PI;
               const radius = 80;
-              const centerX = width / 2;
-              const centerY = height / 2;
+              const centerX = width / 2 - 100;
+              const centerY = height / 2 - 100;
 
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
@@ -71,10 +71,11 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
                   key={option.value}
                   className={classes.option}
                   style={{
-                    position: "absolute",
+                    height: 20,
                     left: centerX + x,
+                    position: "absolute",
                     top: centerY + y,
-                    transform: "translate(-50%, -50%)",
+                    textDecoration: "underline",
                     zIndex: 5,
                   }}
                   initial={{ scale: 0 }}
