@@ -17,7 +17,7 @@ describe("RevolverSelect Component", () => {
         <RevolverSelect name="testRevolverSelect" options={options} />
       </FormProvider>,
     );
-    const selectElement = screen.getByText("Option 1"); // 初期値
+    const selectElement = screen.getByDisplayValue("Option 1"); // 初期値
     expect(selectElement).toBeInTheDocument();
   });
 
@@ -51,7 +51,7 @@ describe("RevolverSelect Component", () => {
     );
 
     // Focus to show options
-    const selectElement = screen.getByText("Option 1");
+    const selectElement = screen.getByDisplayValue("Option 1");
     fireEvent.focus(selectElement);
 
     // Select an option
