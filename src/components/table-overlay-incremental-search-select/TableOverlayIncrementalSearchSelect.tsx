@@ -52,7 +52,7 @@ const TableOverlayIncrementalSearchSelect: React.FC<
   const value = watch(name);
   useEffect(() => {
     reflectValueToSearchTerm(value);
-  }, [value]);
+  }, [value, options]);
 
   const handleOptionClick = (option: { value: string; labels: string[] }) => {
     setSearchTerm(option.labels[0]);
