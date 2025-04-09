@@ -52,7 +52,7 @@ const IncrementalSearchSelect: React.FC<IncrementalSearchSelectProps> = ({
   const value = watch(name);
   useEffect(() => {
     reflectValueToSearchTerm(value);
-  }, [value]);
+  }, [value, options]);
 
   const handleOptionClick = (option: { value: string; label: string }) => {
     setSearchTerm(option.label);
