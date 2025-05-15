@@ -25,7 +25,7 @@ const RevolverSelect: React.FC<RevolverSelectProps> = ({
 
   const textChangeHandler = useCallback(() => {
     setValue(name, null);
-  }, []);
+  }, [name, setValue]);
 
   return (
     <div
