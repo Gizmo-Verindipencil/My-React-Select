@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import classes from "./lazy-select.module.scss";

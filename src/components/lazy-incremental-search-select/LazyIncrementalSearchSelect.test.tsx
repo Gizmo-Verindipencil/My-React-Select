@@ -1,13 +1,13 @@
+import "@testing-library/jest-dom";
 import {
+  fireEvent,
   render,
   renderHook,
   screen,
-  fireEvent,
   waitFor,
 } from "@testing-library/react";
-import { useForm, FormProvider } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import LazyIncrementalSearchSelect from "./LazyIncrementalSearchSelect";
-import "@testing-library/jest-dom";
 
 describe("LazyIncrementalSearchSelect Component", () => {
   const options = [
@@ -142,7 +142,7 @@ describe("LazyIncrementalSearchSelect Component", () => {
 
   it("displays loading state while fetching", async () => {
     const { result } = renderHook(() => useForm());
-    const promise = new Promise((resolve) => {});
+    const promise = new Promise(() => {});
     const loadingMockFetch = jest.fn(() => promise);
 
     render(
