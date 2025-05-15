@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import classes from "./table-overlay-incremental-search-select.module.scss";
@@ -34,16 +34,19 @@ const TableOverlayIncrementalSearchSelect: React.FC<
     );
   }, [searchTerm, options]);
 
-  const reflectValueToSearchTerm = (incoming: string) => {
-    const destinations = options.filter((x) => x.value === incoming);
-    const destination = destinations.length > 0 ? destinations[0] : null;
-    if (destination) {
-      setSearchTerm(destination.labels[0]);
-      setValue(name, destination.value);
-    } else {
-      setValue(name, null);
-    }
-  };
+  const reflectValueToSearchTerm = useCallback(
+    (incoming: string) => {
+      const destinations = options.filter((x) => x.value === incoming);
+      const destination = destinations.length > 0 ? destinations[0] : null;
+      if (destination) {
+        setSearchTerm(destination.labels[0]);
+        setValue(name, destination.value);
+      } else {
+        setValue(name, null);
+      }
+    },
+    [options, name, setValue],
+  );
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     reflectValueToSearchTerm(e.target.value);
